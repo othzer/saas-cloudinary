@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server';
 
 import { PrismaClient } from "@/prisma/generated/client"
 import { PrismaPg } from "@prisma/adapter-pg"
+
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
 })
@@ -59,7 +60,7 @@ export async function POST(request: NextRequest){
                         folder: "home/saas/videos",//where to store
                         resource_type: "video",
                         transformation: [
-                            {quality: "auto", fetch_format: "mp4"},
+                            {quality: "auto", fetch_format: "mp4"},   //supports mp4 format only
                         ]
                     },
                     (error, result)=>{
@@ -90,35 +91,35 @@ export async function POST(request: NextRequest){
     } 
 }
 
-(async function() {
-    // Upload an image
-     const uploadResult = await cloudinary.uploader
-       .upload(
-           'https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg', {
-               public_id: 'shoes',
-           }
-       )
-       .catch((error) => {
-           console.log(error);
-       });
+// (async function() {
+//     // Upload an image
+//      const uploadResult = await cloudinary.uploader
+//        .upload(
+//            'https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg', {
+//                public_id: 'shoes',
+//            }
+//        )
+//        .catch((error) => {
+//            console.log(error);
+//        });
     
-    console.log(uploadResult);
+//     console.log(uploadResult);
     
-    // Optimize delivery by resizing and applying auto-format and auto-quality
-    const optimizeUrl = cloudinary.url('shoes', {
-        fetch_format: 'auto',
-        quality: 'auto'
-    });
+//     // Optimize delivery by resizing and applying auto-format and auto-quality
+//     const optimizeUrl = cloudinary.url('shoes', {
+//         fetch_format: 'auto',
+//         quality: 'auto'
+//     });
     
-    console.log(optimizeUrl);
+//     console.log(optimizeUrl);
     
-    // Transform the image: auto-crop to square aspect_ratio
-    const autoCropUrl = cloudinary.url('shoes', {
-        crop: 'auto',
-        gravity: 'auto',
-        width: 500,
-        height: 500,
-    });
+//     // Transform the image: auto-crop to square aspect_ratio
+//     const autoCropUrl = cloudinary.url('shoes', {
+//         crop: 'auto',
+//         gravity: 'auto',
+//         width: 500,
+//         height: 500,
+//     });
     
-    console.log(autoCropUrl);    
-})();
+//     console.log(autoCropUrl);    
+// })();
